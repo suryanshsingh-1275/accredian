@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Accredian Enterprise — Landing Page Clone
 
-## Getting Started
+A partial clone of the Accredian Enterprise landing page, built as a Full Stack Developer Intern assignment. Recreates the complete landing page experience — navigation, hero, stats, partnerships, course offerings, FAQs, testimonials and a working lead capture form — using Next.js App Router and TypeScript.
 
-First, run the development server:
+Tech Stack
+Framework: Next.js 14+ (App Router)
+Language: TypeScript
+Styling: Plain CSS (globals.css), no CSS framework
+Icons: lucide-react
+Deployment: Vercel
+Features
+Fully responsive layout (desktop, tablet, mobile)
+Smooth scroll navigation with a mobile hamburger menu
+Sections: Hero, Track Record (Stats), Partnerships, Accredian Edge, Domain Expertise, Course Segmentation, Strategic Skill Enhancement, CAT Framework, How It Works, FAQ (accordion), Testimonials, Lead Capture Form, Footer
+Functional lead capture form wired to a Next.js API route, with loading, success and error states
+Reusable, single-responsibility components — one component per section
+Project Structure
+app/
+├── api/
+│   └── route.ts        # POST /api — handles lead submissions
+├── globals.css          # all styling
+├── layout.tsx            # root layout (html/body, navbar, footer)
+├── page.tsx               # assembles all homepage sections
+└── favicon.ico
 
-```bash
+components/
+├── Navbar.tsx
+├── Hero.tsx
+├── Stats.tsx
+├── Partnerships.tsx
+├── AccredianEdge.tsx
+├── DomainExpertise.tsx
+├── CourseSegmentation.tsx
+├── StrategicSkill.tsx
+├── CATFramework.tsx
+├── HowItWorks.tsx
+├── FAQ.tsx
+├── Testimonials.tsx
+├── LeadForm.tsx
+└── Footer.tsx
+Getting Started
+bash
+# install dependencies
+npm install
+
+# run the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to view it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+POST /api
 
-## Learn More
+Accepts a lead submission and logs it server-side (no external database — easy to swap in one later).
 
-To learn more about Next.js, take a look at the following resources:
+Request body:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+json
+{
+  "name": "Jane Doe",
+  "email": "jane@company.com",
+  "company": "Acme Inc",
+  "message": "Interested in enterprise training."
+}
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Response:
 
-## Deploy on Vercel
+json
+{ "success": true, "message": "Thanks! Our team will contact you shortly." }
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+name and email are required — a 400 is returned with an explanatory message if either is missing.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployment
+
+Deployed on Vercel. To deploy your own copy:
+
+Push this repo to GitHub.
+Import the repo on vercel.com/new.
+Vercel auto-detects Next.js — no config needed. Click Deploy.
+AI Usage Disclosure
+
+AI tools (Claude) were used during development for:
+
+Initial component planning and structuring the section-by-section layout
+Debugging a file/content mismatch issue where several component files had gotten mixed up (e.g. the API route logic ended up inside Footer.tsx, and two component files had swapped content)
+Code suggestions for the StrategicSkill and Footer components, built to match CSS classes that already existed in the stylesheet
+Responsive layout troubleshooting
+API route implementation for the lead capture form
+
+All AI-assisted output was:
+
+Manually reviewed line-by-line before being accepted
+Adjusted for correctness (e.g. adding missing "use client" directives, removing unused imports, fixing the root layout structure)
+Tested locally with npm run dev across desktop and mobile viewport widths
+Verified end-to-end — including submitting the lead form and confirming the API logs and success message work correctly
+
+Final implementation decisions, structure, and content were reviewed and approved manually.
